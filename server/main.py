@@ -1,19 +1,23 @@
 #!/usr/bin/python
-
+from flask import Flask, render_template
 from phue import Bridge
-import time
-import random
+app = Flask(__name__)
 ip = '10.0.1.128'
 b = Bridge(ip)
+b.connect()
 
-# Get the bridge state (This returns the full dictionary that you can explore)
-b.get_api()
+@app.route("/")
+def index():
+    return render_template('index.html')
 
-#If running for the first time, press button on bridge and run with b.connect() uncommented
-#b.connect()
-
-lights = b.get_light_objects()
-
-for light in lights:
-    # make everything read
-    light.hue = 0
+@app.route("/changeColor")
+def changeColor():
+    h = request.args.get('h')
+    s = request.args.get('s')
+    l = request.args.get('l')
+    b.get_api()
+    lights = b.get_light_objects()
+    for light in lights:
+        light.hue = h
+        light.saturation = s
+        light.luminosity = l
