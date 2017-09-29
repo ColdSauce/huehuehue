@@ -5,6 +5,7 @@ app = Flask(__name__)
 ip = '10.0.1.128'
 b = Bridge(ip)
 b.connect()
+b.get_api()
 
 @app.route("/")
 def index():
@@ -29,7 +30,6 @@ def changeColorXY():
     x = float(request.args.get('x'))
     y = float(request.args.get('y'))
     l = int(request.args.get('l'))
-    b.get_api()
     lights = b.get_light_objects()
     filteredLights = filter(lambda a : a.name != 'Bedside lamp', lights)
     for light in filteredLights:
