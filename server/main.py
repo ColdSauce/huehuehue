@@ -12,13 +12,14 @@ def index():
 
 @app.route("/changeColor")
 def changeColor():
-    h = request.args.get('h')
-    s = request.args.get('s')
-    l = request.args.get('l')
+    h = int(request.args.get('h'))
+    s = int(request.args.get('s'))
+    l = int(request.args.get('l'))
     b.get_api()
     lights = b.get_light_objects()
-    for light in lights:
+    filteredLights = filter(lambda a : a.name != 'Bedside lamp', lights)
+    for light in filteredLights:
         light.hue = h
         light.saturation = s
         light.brightness = l
-    return 'ayy lmao'
+    return "ayy lmao"
