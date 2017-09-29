@@ -17,7 +17,7 @@ navigator.mediaDevices.getUserMedia({
   console.log(err)
 })
 
-const FREQUENCY = 500
+const FREQUENCY = 2000
 
 const BLOCK_SIZE = 5 // only visit every 5 pixels
 
@@ -48,4 +48,23 @@ setInterval(function() {
   blue = ~~(blue/count);
   // display
   avgDisplay.style.background = `rgb(${red}, ${green}, ${blue})`
+
+  const color = chroma(red, green, blue)
+  const hsl = color.hsl()
+  const convertedHSL = convertHSL(hsl)
+  // contact hue
+  // GET wth param h, s, l
+  fetch(`/changeColor?h=${convertedHSL[0]}&s=${convertedHSL[1]}&l=${convertedHSL[2]}`).then(function(res) {
+    console.log('success!', res)
+  }).catch(function(err) {
+    console.log(err)
+  })
 }, FREQUENCY)
+
+function convertHSL(hsl) {
+  // convert to hue endpoint standard: 0 ~ 65535, integer
+  return hsl.map(function(num) {
+    if (num === NaN) num = 0
+    return Math.floor(num / 255 * 65535)
+  })
+}

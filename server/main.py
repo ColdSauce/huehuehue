@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from phue import Bridge
 app = Flask(__name__)
 ip = '10.0.1.128'
@@ -21,3 +21,4 @@ def changeColor():
         light.hue = h
         light.saturation = s
         light.brightness = l
+    return 'ayy lmao'
