@@ -6,6 +6,7 @@ ip = '10.0.1.128'
 b = Bridge(ip)
 b.connect()
 b.get_api()
+lights = b.get_light_objects()
 
 @app.route("/")
 def index():
@@ -27,10 +28,10 @@ def changeColor():
 
 @app.route("/changeColorXY")
 def changeColorXY():
+    global lights
     x = float(request.args.get('x'))
     y = float(request.args.get('y'))
     l = int(request.args.get('l'))
-    lights = b.get_light_objects()
     filteredLights = filter(lambda a : a.name != 'Bedside lamp', lights)
     for light in filteredLights:
         light.brightness = l
