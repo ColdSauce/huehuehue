@@ -34,6 +34,5 @@ def changeColorXY():
     l = int(request.args.get('l'))
     filteredLights = filter(lambda a : a.name != 'Bedside lamp', lights)
     for light in filteredLights:
-        light.brightness = l
         light.xy = [x,y]
     return "ayy lmaoyyy"

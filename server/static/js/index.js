@@ -20,7 +20,7 @@ navigator.mediaDevices.getUserMedia({
   console.log(err)
 })
 
-const FREQUENCY = 2000
+const FREQUENCY = 4000
 
 const BLOCK_SIZE = 5 // only visit every 5 pixels
 
