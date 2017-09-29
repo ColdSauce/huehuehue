@@ -20,4 +20,4 @@ def changeColor():
     for light in lights:
         light.hue = h
         light.saturation = s
-        light.luminosity = l
+        light.brightness = l
